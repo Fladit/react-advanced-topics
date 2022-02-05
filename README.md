@@ -1,3 +1,7 @@
+# The main idea 
+
+The main idea of this project is to use advanced topics from the [React](https://ru.reactjs.org/docs/getting-started.html) documentation
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
