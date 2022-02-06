@@ -1,30 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Suspense} from "react";
 import './App.css';
-import TodoContainer from "./components/TodoContainer";
+import {Link, BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {AppBar, Toolbar, Typography} from "@mui/material";
+
+const TodoContainer = React.lazy(() => import ("./components/TodoContainer"));
+const MainPage = React.lazy(() => import('./components/MainPage'));
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <main>
-        <TodoContainer/>
-      </main>
-    </div>
-  );
+    return (
+        <Router>
+            <Suspense fallback={<div>Загрузка...</div>}>
+                <div className={'App'}>
+                    <AppBar position="static">
+                        <Toolbar variant="dense" className={'App-header'}>
+                            <Link to="/"><Typography variant="h5">Home</Typography></Link>
+                            <Link to="/todos"><Typography variant="h5">Todos</Typography></Link>
+                        </Toolbar>
+                    </AppBar>
+
+                    {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                    <Routes>
+                        <Route path="/todos" element={<TodoContainer />}>
+                        </Route>
+                        <Route path="/" element={<MainPage />}>
+                        </Route>
+                    </Routes>
+                </div>
+            </Suspense>
+        </Router>
+    );
 }
 
 export default App;
